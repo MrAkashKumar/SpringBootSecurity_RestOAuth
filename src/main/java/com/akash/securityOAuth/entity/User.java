@@ -1,5 +1,6 @@
 package com.akash.securityOAuth.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -24,13 +26,13 @@ public class User implements UserDetails {
     @Column(name = "user_Id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @Column(name = "username", unique = true)
+    private String userName;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "passwords")
     private String password;
 
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "enabled")
     private boolean enabled;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -43,6 +45,11 @@ public class User implements UserDetails {
             String name = role.getName().toUpperCase();
             authorityList.add(new SimpleGrantedAuthority(name));
         }
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
         return null;
     }
 
